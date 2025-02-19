@@ -1,14 +1,7 @@
-/* 
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TextInput, Image, ImageBackground, Button} from 'react-native';
-import  React, {useState}  from 'react';
-import {SafeAreaView, SafeAreaProvider} from 'react-native-safe-area-context';
-
- */
-
 import React, { useState } from 'react';
 import { View, TextInput, Text, Button, StyleSheet } from 'react-native';
-
+import * as React from 'react';
+import { NavigationContainer} from '@react-navigation/native';
 
 export default function App() {
 
@@ -16,11 +9,10 @@ export default function App() {
 
   const [nombre, setNombre] = useState('');
   const [telefono, setTelefono] = useState('');
-  const [correo, setCorreo] =
-   useState('');
+  const [correo, setCorreo] =useState('');
   const [contraseña, setContraseña] = useState('');
   
-
+  
   const presionarBoton = () => {
     // para que al presionar el boton de registrar se envien los datos en la consola
     console.log('Nombre:', nombre);
@@ -30,7 +22,11 @@ export default function App() {
   };
 
   return (
-    
+    <NavigationContainer>
+      <Stack.Navigator>
+
+      
+
     <View style={styles.container}>
       <Text style={styles.tituloRegistrarse} >REGISTRARSE</Text>
       
@@ -63,6 +59,9 @@ export default function App() {
       />
       <Button  style={styles.BotonRegistrarse} title="Registrarse" onPress={presionarBoton} />
     </View>
+    </Stack.Navigator>
+</NavigationContainer>
+
   );
 }
 
@@ -92,6 +91,9 @@ tituloRegistrarse: {
   marginBottom: 100,
   marginLeft: 70,
  
+},
+BotonRegistrarse:{
+padding: 92,
 },
 
 
