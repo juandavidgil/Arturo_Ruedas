@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
-import { View, TextInput, Text, Button, StyleSheet } from 'react-native';
+import { View, TextInput, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
 import * as React from 'react';
 import { NavigationContainer} from '@react-navigation/native';
 
 export default function App() {
-
-  
 
   const [nombre, setNombre] = useState('');
   const [telefono, setTelefono] = useState('');
@@ -21,15 +19,39 @@ export default function App() {
     console.log('Contraseña:', contraseña);
   };
 
-  return (
+  const  DirigirRegistro= ({navigation})=>{
+    return (
+      <Button 
+      onPress={()=>
+        navigation.navigate('registro')
+      }
+      />
+    )
+  
+
+  }
+
+return (
     <NavigationContainer>
       <Stack.Navigator>
 
-      
+        
+        <Button  style={styles.DirigirRegistro} title="dirigirRegistro" onPress={DirigirRegistro} />
+<Stack.Screen
+        name= "presentacion"
+        component={PantallaPresentacion}
+        options={{title: "bienvenida"}}
 
-    <View style={styles.container}>
+
+      />
+      <Stack.Screen
+        name= "registro"
+        component={Registro}
+        options={{title: 'registro'}}
+      />
+
+      <View style={styles.container}>
       <Text style={styles.tituloRegistrarse} >REGISTRARSE</Text>
-      
       
       <TextInput
         style={styles.input}
@@ -58,6 +80,7 @@ export default function App() {
         onChangeText={setContraseña}
       />
       <Button  style={styles.BotonRegistrarse} title="Registrarse" onPress={presionarBoton} />
+      
     </View>
     </Stack.Navigator>
 </NavigationContainer>
@@ -67,7 +90,7 @@ export default function App() {
 
 
 
-//ESTILOS
+//ESTILOS     
 const styles = StyleSheet.create({
   container: {
     flex: 1,
