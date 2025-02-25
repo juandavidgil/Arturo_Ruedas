@@ -1,8 +1,9 @@
 //import * as React from 'react';
-import { View, TextInput, Text, Button, StyleSheet,  } from 'react-native';
+import { View, TextInput, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { SafeAreaView, SafeAreaProvider} from 'react-native-safe-area-context';
 import { Button } from '@react-navigation/elements';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStaticNavigation, useNavigation, navigation } from '@react-navigation/native';
+import { createStaticNavigation, useNavigation, navigation} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import React, { useState } from 'react';
@@ -11,7 +12,31 @@ import React, { useState } from 'react';
 
 //-----------------------------FUNCIONES Y PANTALLAS---------------------------------------------------------------//
 
+
+
+//-----------------------------PANTALLA PRESENTACION-----------------------------------------------//
+function PresentacionPantalla(){
+  const navigation = useNavigation();
+  return(
+    <View style={styles.container}>
+      <TouchableOpacity onPress={()=> navigation.navigate('InicioSesion')}>
+        <Text>
+          Iniciar Sesion
+        </Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={()=> navigation.navigate('Registro')}>
+        <Text>
+          Registrarse
+        </Text>
+      </TouchableOpacity>
+    </View>
+  )
+}
+
+//------------------------PANTALLA REGISTRO--------------------------------------------------------//
 function RegistroPantalla(){
+  const navigation = useNavigation();
   const [nombre, setNombre] = useState('');
   const [telefono, setTelefono] = useState('');
   const [correo, setCorreo] =useState('');
@@ -22,9 +47,6 @@ function RegistroPantalla(){
   console.log('Telefono:', telefono);
   console.log('Correo:', correo);
   console.log('Contraseña:', contraseña);
-  
-  const navigation = useNavigation();
-
   };
   return(
     <View style={styles.container}>
@@ -59,16 +81,20 @@ function RegistroPantalla(){
     {/* toca cambiar boton a touchableOpacity para poder agragar estilos */}
     <Button  style={styles.BotonRegistrarse} title="Registrarse" onPress={presionarBoton} />
 
-    < Button onPress={()=> navigation.navigate('InicioSesion')}> Iniciar Sesion</Button> 
+    <Button onPress={()=> navigation.navigate('InicioSesion')}> Iniciar Sesion</Button> 
     
   </View>
   )
 } 
 
+
+//-----------------------------------PANTALLA INCIO SESION--------------------------------------------//
 function InicioSesionPantalla(){
   return(
     <View>
-      <Text>hola</Text>
+      <TextInput
+      style={styles.input}
+      />
     </View>
   )
 }
@@ -79,11 +105,17 @@ const Stack = createNativeStackNavigator();
 function RootStack(){
   return(
     <Stack.Navigator initialRouteName="Registro">
-    <Stack.Screen name="Registro"
+    <Stack.Screen name="Presentacion"
+    component={PresentacionPantalla}
+    options={{title: "Presentacion"}}/>
+    
+   <Stack.Screen name="Registro"
      component={RegistroPantalla}
-     options={{title: "supapa"}}/> 
+     options={{title: "Registro"}}/>  
+    
     <Stack.Screen name="InicioSesion"
-     component={InicioSesionPantalla}/>
+     component={InicioSesionPantalla}
+     options={{title: 'inicio sesion'}}/> 
     </Stack.Navigator>
   );
 }
